@@ -1,0 +1,13 @@
+{
+  "name": "my-addon",
+  "title": "my-addon",
+  "id": "jid1-1FERGV45e4f4f@jetpack",
+  "description": "a basic add-on",
+  "author": "",
+  "license": "MPL-2.0",
+  "version": "0.1",
+  "dependencies": {
+    "node-osc": "^2.0.4",
+    "twitter": "^1.7.x"
+  }
+}
