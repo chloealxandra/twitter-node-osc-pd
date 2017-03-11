@@ -1,5 +1,6 @@
 var Twitter = require('twitter');
 var secrets = require('./secrets.js');
+var osc = require('node-osc');
  
 var client = new Twitter({
   consumer_key: secrets.TWITTER_CONSUMER_KEY,
@@ -8,16 +9,25 @@ var client = new Twitter({
   access_token_secret: secrets.TWITTER_ACCESS_TOKEN_SECRET
 });
 
-/**
- * Stream statuses filtered by keyword
- * number of tweets per second depends on topic popularity
- **/
-client.stream('statuses/filter', {track: 'fuck'},  function(stream) {
+
+client.stream('statuses/filter', {track: 'cats'},  function(stream) {
   stream.on('data', function(tweet) {
-    console.log(tweet.text);
+    var tweet = "/"+tweet.text;  
+
+    var oscClient = new osc.Client('127.0.0.1', 5000);
+    oscClient.send(tweet, "", function () {
+      oscClient.kill();
+    });
+
   });
 
   stream.on('error', function(error) {
     console.log(error);
   });
 });
+
+
+/**
+ * Stream statuses filtered by keyword
+ * number of tweets per second depends on topic popularity
+ **/
